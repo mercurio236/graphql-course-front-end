@@ -3,10 +3,13 @@ import { AuthForm } from 'components/AuthForm';
 import { DefaultError } from 'components/DefaultError';
 import { Loading } from 'components/Loading';
 import { GQL_LOGIN } from 'graphql/mutations/auth';
+import { loginFormVar } from 'graphql/reactive-variables/login-form';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet';
 
 export const Login = () => {
-  const [login, { loading, error, data }] = useMutation(GQL_LOGIN, {
+  loginFormVar.use();
+  const [login, { loading, error }] = useMutation(GQL_LOGIN, {
     onError() {}, //previni que algum erro apareça na tela
   });
 
@@ -20,8 +23,7 @@ export const Login = () => {
       userName: userNameInput.value,
       password: passwordInput.value,
     };
-    console.log(variables);
-
+    loginFormVar.set({ ...variables });
     await login({
       variables,
     });
@@ -29,7 +31,7 @@ export const Login = () => {
 
   if (loading) return <Loading loading={loading} />;
   //if (error) return <DefaultError error={error} />;
-  console.log(data);
+
   return (
     <>
       <Helmet title="Login - GraphQL + Apollo-Client - Arley Souto" />
