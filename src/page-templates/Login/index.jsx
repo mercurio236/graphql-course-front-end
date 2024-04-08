@@ -1,16 +1,22 @@
 import { useMutation } from '@apollo/client';
 import { AuthForm } from 'components/AuthForm';
-import { DefaultError } from 'components/DefaultError';
 import { Loading } from 'components/Loading';
 import { GQL_LOGIN } from 'graphql/mutations/auth';
+import { authDataManager } from 'graphql/reactive-variables/auth';
 import { loginFormVar } from 'graphql/reactive-variables/login-form';
-import { useState } from 'react';
 import { Helmet } from 'react-helmet';
 
 export const Login = () => {
   loginFormVar.use();
   const [login, { loading, error }] = useMutation(GQL_LOGIN, {
     onError() {}, //previni que algum erro apareça na tela
+    onCompleted(data) {
+      authDataManager.setVar(
+        loginFormVar.get().userName,
+        data.login.userId,
+        true,
+      );
+    },
   });
 
   const handleLogin = async (e) => {
