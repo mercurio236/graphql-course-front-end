@@ -1,6 +1,7 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { httpLink } from './links/http-link';
 
 export const apolloClinet = new ApolloClient({
-  uri: 'http://localhost:4003',
+  link: httpLink,
   cache: new InMemoryCache(),
 });
