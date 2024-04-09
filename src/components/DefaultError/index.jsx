@@ -14,7 +14,7 @@ export const DefaultError = ({ error }) => {
       <DefaultContainer>
         <h1>Something went wrong. Sorry 😭!</h1>
         <p>
-          Here is the error message: <code>{error.message}</code>
+          Here is the error message: <code>{error?.message}</code>
         </p>
         <p>
           Try to{' '}

@@ -3,17 +3,17 @@ import { GQL_FRAGMENT_COMMENT } from 'graphql/fragments/comment';
 import { GQL_FRAGMENT_POST } from 'graphql/fragments/post';
 import { GQL_FRAGMENT_USER } from 'graphql/fragments/user';
 
-export const GQL_POSTS_LIMIT = 1;
+export const GQL_POSTS_LIMIT = 2;
 
 export const GQL_POST = gql`
   query GET_POSTS(
     $sort: String = "indexRef"
-    $order: ApiFilterOrder = DESC
+    #$order: ApiFilterOrder = DESC
     $start: Int = 0
     $limit: Int = ${GQL_POSTS_LIMIT}
   ) {
     posts(
-      input: { _sort: $sort, _order: $order, _start: $start, _limit: $limit }
+      input: { _sort: $sort, _start: $start, _limit: $limit }
     ) {
       ...post
       user {

@@ -8,24 +8,36 @@ import { useQuery } from '@apollo/client';
 import { GQL_POST } from 'graphql/queries/post';
 import { Loading } from 'components/Loading';
 import { DefaultError } from 'components/DefaultError';
+import { FormButton } from 'components/FormButton';
 
 export const Home = () => {
-  const { loading, error, data } = useQuery(GQL_POST);
+  const { loading, error, data, fetchMore, previousData } = useQuery(GQL_POST, {
+    notifyOnNetworkStatusChange: true,
+  });
 
-  if (loading) return <Loading loading={loading} />;
+  if (loading && !previousData) return <Loading loading={loading} />;
   if (loading) return <DefaultError error={error} />;
 
   if (!data) {
-    return;
+    return null;
   }
+
+  const handleLoadMore = async () => {
+    if (!Array.isArray(data?.posts)) return;
+    await fetchMore({
+      variables: {
+        start: data.posts.length,
+      },
+    });
+  };
 
   return (
     <>
-      <Helmet title="Home - GraphQL + Apollo-Client - Otávio Miranda" />
+      <Helmet title="Home - GraphQL + Apollo-Client - Arley Souto" />
 
-      <Styled.HeadingContainer>
+      <Styled.Container>
         <Heading>Posts</Heading>
-      </Styled.HeadingContainer>
+      </Styled.Container>
 
       {/* MOCKED RESULTS */}
       <Styled.PostsContainer>
@@ -43,6 +55,12 @@ export const Home = () => {
           );
         })}
       </Styled.PostsContainer>
+
+      <Styled.Container>
+        <FormButton clickedFn={handleLoadMore} disabled={loading}>
+          Load more
+        </FormButton>
+      </Styled.Container>
     </>
   );
 };
