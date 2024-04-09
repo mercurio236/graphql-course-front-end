@@ -6,7 +6,7 @@ import P from 'prop-types';
 import { memo, useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
 
-export function MenuMemo({ loading = false, data = {}, handleLogout }) {
+export function MenuMemo({ loading = false, authVar = {}, handleLogout }) {
   const [isVisible, setIsVisible] = useState(false);
   const notificationCb = useCallback((status) => {
     toast.success(`Notifications are ${status ? 'ON' : 'OFF'}`);
@@ -29,7 +29,7 @@ export function MenuMemo({ loading = false, data = {}, handleLogout }) {
           <Styled.Nav onClick={handleNavClick}>
             <Styled.RouterLink to="/">Home</Styled.RouterLink>
 
-            {!!data?.userId && (
+            {!!authVar?.userId && (
               <>
                 <Styled.RouterLink to="/post/create">
                   Create post
@@ -40,25 +40,22 @@ export function MenuMemo({ loading = false, data = {}, handleLogout }) {
                 <Styled.RouterLink to="#" onClick={handleLogout}>
                   Logout
                 </Styled.RouterLink>
-                <ToggleButton
-                  title="Enable or disable notifications"
-                  onChangeFn={() => {}}
-                />
               </>
             )}
 
-            {!data?.userId && (
+            {!authVar?.userId && (
               <>
                 <Styled.RouterLink to="/login">Login</Styled.RouterLink>
                 <Styled.RouterLink to="/register">Register</Styled.RouterLink>
               </>
             )}
           </Styled.Nav>
-
-          <ToggleButton
-            title="Toggle notifications"
-            onChangeFn={notificationCb}
-          />
+          {authVar?.userId && (
+            <ToggleButton
+              title="Toggle notifications"
+              onChangeFn={notificationCb}
+            />
+          )}
         </Styled.VerticalCenter>
 
         <Styled.ShowButton isVisible={isVisible} onClick={showMenu}>
@@ -72,7 +69,7 @@ export function MenuMemo({ loading = false, data = {}, handleLogout }) {
 MenuMemo.propTypes = {
   loading: P.bool,
   handleNavClick: P.func,
-  data: P.object,
+  authVar: P.object,
   handleLogout: P.func,
 };
 

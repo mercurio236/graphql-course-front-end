@@ -16,6 +16,7 @@ export const Login = () => {
         data.login.userId,
         true,
       );
+      window.location.href = '/';
     },
   });
 
@@ -44,7 +45,7 @@ export const Login = () => {
 
       <AuthForm
         handleLogin={handleLogin}
-        formDisabled={false}
+        formDisabled={loading}
         formError={error?.message}
       />
     </>
