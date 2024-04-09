@@ -9,8 +9,10 @@ import { GQL_POST } from 'graphql/queries/post';
 import { Loading } from 'components/Loading';
 import { DefaultError } from 'components/DefaultError';
 import { FormButton } from 'components/FormButton';
+import { useAuthVar } from 'graphql/reactive-variables/auth';
 
 export const Home = () => {
+  const authVar = useAuthVar();
   const { loading, error, data, fetchMore, previousData } = useQuery(GQL_POST, {
     notifyOnNetworkStatusChange: true,
   });
@@ -51,6 +53,7 @@ export const Home = () => {
               body={post.body}
               user={post.user}
               createdAt={post.createdAt}
+              loggedUserId={authVar.userId}
             />
           );
         })}
