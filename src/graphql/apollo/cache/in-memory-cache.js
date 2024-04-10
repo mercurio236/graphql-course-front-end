@@ -12,5 +12,13 @@ export const cache = new InMemoryCache({
         },
       },
     },
+    Post: {
+      fields: {
+        numberOfcomments(_, { readField }) {
+          const commnets = readField('comments');
+          return commnets.length;
+        },
+      },
+    },
   },
 });

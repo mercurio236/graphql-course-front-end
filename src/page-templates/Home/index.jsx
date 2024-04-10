@@ -21,11 +21,9 @@ export const Home = () => {
   );
 
   if (loading && !previousData) return <Loading loading={loading} />;
-  if (loading) return <DefaultError error={error} />;
+  if (error) return <DefaultError error={error} />;
 
-  if (!data) {
-    return null;
-  }
+  if (!data) return null;
 
   const handleLoadMore = async () => {
     if (!Array.isArray(data?.posts)) return;
@@ -57,6 +55,7 @@ export const Home = () => {
               user={post.user}
               createdAt={post.createdAt}
               loggedUserId={authVar.userId}
+              numberOfComments={post.numberOfcomments}
             />
           );
         })}
@@ -64,7 +63,7 @@ export const Home = () => {
 
       <Styled.Container>
         <FormButton clickedFn={handleLoadMore} disabled={loading}>
-          Load more
+          {loading ? 'Carregando...' : 'Load more'}
         </FormButton>
       </Styled.Container>
     </>
