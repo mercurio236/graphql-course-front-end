@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 export const Register = () => {
   return (
     <>
-      <Helmet title="Register - GraphQL + Apollo-Client - Otávio Miranda" />
+      <Helmet title="Register - GraphQL + Apollo-Client - Arley Souto" />
 
       <RegisterForm
         handleSubmitCb={(sentValues) =>

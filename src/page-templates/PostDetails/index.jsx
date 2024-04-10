@@ -20,7 +20,7 @@ export const PostDetails = () => {
 
   return (
     <>
-      <Helmet title="Post Details - GraphQL + Apollo-Client - Otávio Miranda" />
+      <Helmet title="Post Details - GraphQL + Apollo-Client - Arley Souto" />
 
       <Post
         id={post.id}

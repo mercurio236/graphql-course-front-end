@@ -5,7 +5,7 @@ import * as Styled from './styles';
 export function Page404() {
   return (
     <>
-      <Helmet title="Page not found - GraphQL + Apollo-Client - Otávio Miranda" />
+      <Helmet title="Page not found - GraphQL + Apollo-Client - Arley Souto" />
 
       <Styled.Container>
         <DefaultContainer>

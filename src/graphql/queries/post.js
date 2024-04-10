@@ -5,7 +5,7 @@ import { GQL_FRAGMENT_USER } from 'graphql/fragments/user';
 
 export const GQL_POSTS_LIMIT = 2;
 
-export const GQL_POST = gql`
+export const GQL_POSTS = gql`
   query GET_POSTS(
     $sort: String = "indexRef"
     #$order: ApiFilterOrder = DESC
@@ -28,6 +28,26 @@ export const GQL_POST = gql`
     }
   }
 
+  ${GQL_FRAGMENT_POST}
+  ${GQL_FRAGMENT_USER}
+  ${GQL_FRAGMENT_COMMENT}
+`;
+
+export const GQL_POST = gql`
+  query GET_POST($id: ID!) {
+    post(id: $id) {
+      ...post
+      user {
+        ...user
+      }
+      comments {
+        ...comment
+        user {
+          ...user
+        }
+      }
+    }
+  }
   ${GQL_FRAGMENT_POST}
   ${GQL_FRAGMENT_USER}
   ${GQL_FRAGMENT_COMMENT}

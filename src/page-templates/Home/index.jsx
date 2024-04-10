@@ -5,7 +5,7 @@ import { Heading } from 'components/Heading';
 import { Post } from 'components/Post';
 import { Helmet } from 'react-helmet';
 import { useQuery } from '@apollo/client';
-import { GQL_POST } from 'graphql/queries/post';
+import { GQL_POST, GQL_POSTS } from 'graphql/queries/post';
 import { Loading } from 'components/Loading';
 import { DefaultError } from 'components/DefaultError';
 import { FormButton } from 'components/FormButton';
@@ -13,9 +13,12 @@ import { useAuthVar } from 'graphql/reactive-variables/auth';
 
 export const Home = () => {
   const authVar = useAuthVar();
-  const { loading, error, data, fetchMore, previousData } = useQuery(GQL_POST, {
-    notifyOnNetworkStatusChange: true,
-  });
+  const { loading, error, data, fetchMore, previousData } = useQuery(
+    GQL_POSTS,
+    {
+      notifyOnNetworkStatusChange: true,
+    },
+  );
 
   if (loading && !previousData) return <Loading loading={loading} />;
   if (loading) return <DefaultError error={error} />;
