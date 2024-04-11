@@ -17,6 +17,7 @@ export const Home = () => {
     GQL_POSTS,
     {
       notifyOnNetworkStatusChange: true,
+      onError() {},
     },
   );
 

@@ -15,6 +15,7 @@ export const CommentForm = ({ handleSubmit, buttonDisabled = false }) => {
     if (handleSubmit) {
       handleSubmit(comment);
     }
+    setComment('');
   };
 
   return (
@@ -26,6 +27,7 @@ export const CommentForm = ({ handleSubmit, buttonDisabled = false }) => {
             label="Comment"
             id="commentBody"
             changeFn={(v) => setComment(v)}
+            textValue={comment}
           />
           <FormButton type="submit" icon={<Send />} disabled={buttonDisabled}>
             Send comment
