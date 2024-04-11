@@ -27,6 +27,9 @@ export const PostDetails = () => {
   const { id } = useParams();
   const history = useHistory();
   const { loading, error, data } = useQuery(GQL_POST, {
+    onError() {
+      toast.error(error.message);
+    },
     variables: {
       id,
     },
@@ -55,9 +58,9 @@ export const PostDetails = () => {
 
   if (loading) return <Loading loading={loading} />;
 
-  if (error || commentError) {
+  /*  if (error || commentError) {
     return <DefaultError error={error || commentError} />;
-  }
+  } */
 
   const post = data?.post;
 
