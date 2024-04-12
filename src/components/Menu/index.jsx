@@ -11,12 +11,12 @@ import { CommentNotification } from 'components/CommentNotification';
 import { notificationsVar } from '../../graphql/reactive-variables/notifications';
 
 export function MenuMemo({ loading = false, authVar = {}, handleLogout }) {
-  const notificationStatus = notificationsVar.useHook();
+  //const notificationStatus = notificationsVar.useHook();
   const [isVisible, setIsVisible] = useState(false);
   const notificationCb = useCallback((status) => {
     toast.success(`Notifications are ${status ? 'ON' : 'OFF'}`);
   }, []);
-  notificationsVar.set({ isActive: status });
+  //notificationsVar.set({ isActive: status });
   const hideMenu = () => setIsVisible(false);
   const showMenu = () => setIsVisible(true);
 
@@ -24,7 +24,7 @@ export function MenuMemo({ loading = false, authVar = {}, handleLogout }) {
     setIsVisible(false);
   };
 
-  useSubscription(GQL_CREATED_COMMENT, {
+  /*  useSubscription(GQL_CREATED_COMMENT, {
     skip: !notificationStatus.isActive,
     onData({ data }) {
       console.log(data);
@@ -42,7 +42,7 @@ export function MenuMemo({ loading = false, authVar = {}, handleLogout }) {
         position: 'bottom-right',
       });
     },
-  });
+  }); */
 
   return (
     <>
@@ -76,13 +76,13 @@ export function MenuMemo({ loading = false, authVar = {}, handleLogout }) {
               </>
             )}
           </Styled.Nav>
-          {authVar?.userId && (
+          {/* {authVar?.userId && (
             <ToggleButton
               title="Toggle notifications"
               onChangeFn={notificationCb}
               state={notificationStatus.isActive}
             />
-          )}
+          )} */}
         </Styled.VerticalCenter>
 
         <Styled.ShowButton isVisible={isVisible} onClick={showMenu}>

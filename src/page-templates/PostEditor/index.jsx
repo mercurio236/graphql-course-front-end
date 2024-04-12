@@ -24,7 +24,9 @@ export const PostEditor = () => {
     },
   });
   const [createPost, { error: createErrors }] = useMutation(GQL_CREATE_POST, {
-    onError() {},
+    onError(error) {
+      console.log(error);
+    },
     onCompleted(data) {
       toast.success('Criado com sucesso!');
       //window.location.href = `/post/${data.createPost.id}/edit`;

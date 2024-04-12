@@ -16,7 +16,7 @@ export const cache = new InMemoryCache({
       fields: {
         numberOfcomments(_, { readField }) {
           const commnets = readField('comments');
-          return commnets.length;
+          return commnets?.length ?? 0;
         },
       },
     },
