@@ -11,11 +11,11 @@ export const Login = () => {
   const [login, { loading, error }] = useMutation(GQL_LOGIN, {
     onError() {}, //previni que algum erro apareça na tela
     onCompleted(data) {
-      authDataManager.setVar(
-        loginFormVar.get().userName,
-        data.login.userId,
-        true,
-      );
+      authDataManager.set({
+        userName: loginFormVar.get().userName,
+        userId: data.login.userId,
+        isLoggedIn: true,
+      });
       window.location.href = '/';
     },
   });
@@ -30,6 +30,7 @@ export const Login = () => {
       userName: userNameInput.value,
       password: passwordInput.value,
     };
+
     loginFormVar.set({ ...variables });
     await login({
       variables,

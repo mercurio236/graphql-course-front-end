@@ -12,4 +12,14 @@ export const storageHelpers = {
     if (!item) return item;
     return JSON.parse(item);
   },
+  getRaw(key) {
+    return defaultStorage.getItem(key);
+  },
+};
+
+export const noStorage = {
+  add() {},
+  delete() {},
+  get() {},
+  getRaw() {},
 };
